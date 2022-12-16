@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <link href="fire.css" media="screen" rel="stylesheet" type="text/css" />
+    <link href='http://fonts.googleapis.com/css?family=Electrolize' rel='stylesheet' type='text/css'>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="fire.js" type="text/javascript"></script>
+  </head>
+  <body>
+    <div class="buttons">
+      <h1>Fire</h1>
+      <button  class="btn" id="stop">Stop</button>
+      <button  class="btn" id="step">Step</button>
+      <button  class="btn" id="resume">Resume</button>
+      <button  class="btn" id="reset">Reload</button>
+      <p>Generations: <span class="right" id="generations"></span></p>
+      <p>Births:<span class="right" id="births"></span></p>
+      <p>Living:<span class="right" id="living"></span></p>
+      <p>Deaths:<span class="right" id="deaths"></span></p>
+    </div>
+    <br />
+    <canvas id="c">
+    </canvas>
+  </body>
+</html>

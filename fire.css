@@ -1,0 +1,52 @@
+body {
+  color: #fff;
+  font-family: "Electrolize", sans-serif;
+  height: 100%;
+  letter-spacing: 0.1em;
+  line-height: 12px;
+  margin: 0;
+  padding: 0;
+  width: 100%;
+}
+
+h1 {
+  font-size: 20px;
+  text-align: center;
+}
+
+.buttons {
+  background: rgba(80, 80, 80, 0.9);
+  border-radius: 0px 0px 10px 0px;
+  padding: 20px;
+  position: absolute;
+  z-index: 10;
+}
+
+.btn {
+  background: #555;
+  border: 1px solid #aaa;
+  color: #fff;
+  padding: 4px 6px;
+}
+
+.btn:hover {
+  background: rgba(52, 73, 94, 0.89);
+  border: 1px solid #ccc;
+}
+
+.right {
+  float: right;
+}
+
+.green {
+  color: #0fa;
+}
+
+.almost {
+  color: #ffaf00;
+}
+
+canvas {
+  position: absolute;
+  top: 0px;
+}
