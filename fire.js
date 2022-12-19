@@ -3,51 +3,57 @@ $(document).ready(function() {
 
   var timer;
   var world;
-  var current;
   var palette;
 
-  const CELL_SIZE = 32;
+  const CELL_SIZE = 6;
   const WIDTH = Math.floor($("#c").width() / CELL_SIZE);
   const HEIGHT = Math.floor($("#c").height() / CELL_SIZE);
 
   createWorld();
   loadPalette();
- // seedFire();
-  //process();
- // draw(world);
   setupControls();
+  startMainLoop();
 
   function nextCycle() {
     seedFire();
-   // process();
+    burn();
     draw(world);
   }
 
 
   // One line
   function seedFire() {
-    for (var i = 0; i < WIDTH + 1; i++) {
+    for (var i = 0; i < WIDTH; i++) {
       world[i] = Math.floor(Math.random() * (255 - 150) + 150);
     }
   }
 
-  function process() {
+  function burn() {
+    // b  c   d  
+    //    a
     // start at line one
-     for (var y = 1; y < HEIGHT -1; y++) {
-      for (var x = 1; x < WIDTH - 1; x++) {
-        let p = (WIDTH * y) + x;
-        let nw = world[p - WIDTH + 1];
-        let n = world[p - WIDTH]; // one line back
-        let ne = world[p - WIDTH - 1];
-        let pp = (nw + n + ne ) / 3;
-        world[p] = pp;
+    for (var y = 1; y < HEIGHT; y++) {
+      for (var x = 1; x < WIDTH; x++) {
+        // positions
+        let a = (WIDTH * y) + x;
+        let b = a - (WIDTH) - 1;
+        let c = a - (WIDTH);
+        let d = a - (WIDTH) + 1;
+        // values
+        let va = world[a];
+        let vb = world[b];
+        let vc = world[c];
+        let vd = world[d];
+
+        let nv = Math.floor((va + vb + vc + vd) / 4);
+        world[a] = nv;
       }
     }
   }
 
   function createWorld() {
     world = new Array(WIDTH * HEIGHT);
-    current = new Array(WIDTH * HEIGHT);
+    world.fill(0);
   }
 
   function setupControls() {
