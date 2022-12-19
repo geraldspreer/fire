@@ -5,9 +5,13 @@ $(document).ready(function() {
   var world;
   var palette;
 
-  const CELL_SIZE = 6;
+  const CELL_SIZE = 8;
   const WIDTH = Math.floor($("#c").width() / CELL_SIZE);
   const HEIGHT = Math.floor($("#c").height() / CELL_SIZE);
+  const MIN_THICK = 5;
+  const MAX_THICK = 20;
+  const MIN_HEAT = 160;
+  const MAX_HEAT = 255;
 
   createWorld();
   loadPalette();
@@ -20,11 +24,15 @@ $(document).ready(function() {
     draw(world);
   }
 
-
   // One line
   function seedFire() {
-    for (var i = 0; i < WIDTH; i++) {
-      world[i] = Math.floor(Math.random() * (255 - 150) + 150);
+    let x = 0;
+    while (x < WIDTH) {
+      let v = Math.floor(Math.random() * (MAX_HEAT - MIN_HEAT) + MIN_HEAT);
+      for (var i = 1; i < Math.floor(Math.random() * (MAX_THICK - MIN_THICK) + MIN_THICK); i++) {
+        world[x] = v
+        x++;
+      }
     }
   }
 
@@ -92,7 +100,8 @@ $(document).ready(function() {
     var context = canvas.getContext("2d");
     var x = 0;
     var y = 0;
-    for (var iy = 0; iy < HEIGHT; iy++) {
+    // Add the CELL_SIZE to hide the feeder
+    for (var iy = 0 + CELL_SIZE; iy <= HEIGHT + CELL_SIZE; iy++) {
       for (var ix = 0; ix < WIDTH; ix++) {
         let value = buffer[ix + iy * WIDTH];
         let color;
