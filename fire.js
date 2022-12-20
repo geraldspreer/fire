@@ -4,9 +4,9 @@ $(document).ready(function() {
   var timer;
   var world;
 
+  const CELL_SIZE = 6;
   const WIDTH = Math.floor($("#c").width() / CELL_SIZE);
   const HEIGHT = Math.floor($("#c").height() / CELL_SIZE);
-  const CELL_SIZE = 6;
   const MIN_THICK = 10;
   const MAX_THICK = 30;
   const MIN_HEAT = 90;
@@ -54,7 +54,7 @@ $(document).ready(function() {
         let vd = world[d];
 
         let nv = Math.floor((va + vb + vc + vd) / 4);
-         world[a] = nv > 80 ? nv - 1 : nv - 3;
+        world[a] = nv > 120 ? nv - 1 : nv - 2;
       }
     }
   }
