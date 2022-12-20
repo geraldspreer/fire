@@ -1,5 +1,6 @@
 body {
   color: #fff;
+  background: black;
   font-family: "Electrolize", sans-serif;
   height: 100%;
   letter-spacing: 0.1em;
@@ -51,6 +52,7 @@ h1 {
 }
 
 canvas {
+  transform: rotate(180deg);
   position: absolute;
   top: 0px;
 }
