@@ -3,6 +3,9 @@ $(document).ready(function() {
 
   var timer;
   var world;
+  var frames = 0;
+
+  var fps = document.getElementById('fps');
 
   const CELL_SIZE = 6;
   const WIDTH = Math.floor($("#c").width() / CELL_SIZE);
@@ -15,6 +18,7 @@ $(document).ready(function() {
   createWorld();
   loadPalette();
   setupControls()
+  showFrames();
   startMainLoop();
 
   function nextCycle() {
@@ -83,6 +87,8 @@ $(document).ready(function() {
   }
 
   function startMainLoop() {
+    setInterval(showFrames, 1000);
+
     timer = setInterval(function() {
       nextCycle();
     }, 0);
@@ -93,6 +99,11 @@ $(document).ready(function() {
 
     $("#c").attr("width", window.innerWidth);
     $("#c").attr("height", innerHeight);
+  }
+
+  function showFrames() {
+    fps.textContent = frames;
+    frames = 0;
   }
 
   function draw(buffer) {
@@ -116,5 +127,6 @@ $(document).ready(function() {
       y = y + CELL_SIZE;
       x = 0;
     }
+    frames++;
   }
 });
