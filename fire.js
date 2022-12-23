@@ -5,6 +5,8 @@ $(document).ready(function() {
   var world;
   var frames = 0;
 
+  var canvas = document.getElementById("c");
+  var context = canvas.getContext("2d");
   var fps = document.getElementById('fps');
 
   const CELL_SIZE = 6;
@@ -21,14 +23,15 @@ $(document).ready(function() {
   showFrames();
   startMainLoop();
 
+  console.log(paletteRGB.length);
+
   function nextCycle() {
-    seedFire();
+    feedFire();
     burn();
     draw(world);
   }
 
-  // One line
-  function seedFire() {
+  function feedFire() {
     let x = 0;
     while (x < WIDTH) {
       let v = Math.floor(Math.random() * (MAX_HEAT - MIN_HEAT) + MIN_HEAT);
@@ -43,19 +46,15 @@ $(document).ready(function() {
   function burn() {
     // b  c   d  
     //    a
-    // start at line one
     for (var y = 1; y < HEIGHT; y++) {
       for (var x = 1; x < WIDTH; x++) {
         // positions
         let a = (WIDTH * y) + x;
-        let b = a - (WIDTH) - 1;
-        let c = a - (WIDTH);
-        let d = a - (WIDTH) + 1;
         // values
         let va = world[a];
-        let vb = world[b];
-        let vc = world[c];
-        let vd = world[d];
+        let vb = world[a - (WIDTH) - 1];
+        let vc = world[a - (WIDTH)];
+        let vd = world[a - (WIDTH) + 1];
 
         let nv = Math.floor((va + vb + vc + vd) / 4);
         world[a] = nv > 120 ? nv - 1 : nv - 2;
@@ -107,20 +106,18 @@ $(document).ready(function() {
   }
 
   function draw(buffer) {
-    var canvas = document.getElementById("c");
-    var context = canvas.getContext("2d");
     var x = 0;
     var y = 0;
     // Add the CELL_SIZE to hide the feeder
     for (var iy = 0 + CELL_SIZE; iy <= HEIGHT; iy++) {
+      let lo = iy * WIDTH;
       for (var ix = 0; ix < WIDTH; ix++) {
-        let value = buffer[ix + iy * WIDTH];
-        if (value < 0) {
+        let value = buffer[ix + lo];
+        if (value < 24) {
           x = x + CELL_SIZE;
           continue;
         }
-        color = paletteRGB[value];
-        context.fillStyle = color;
+        context.fillStyle = paletteRGB[value];
         context.fillRect(x, y, CELL_SIZE, CELL_SIZE);
         x = x + CELL_SIZE;
       }
