@@ -5,8 +5,10 @@ $(document).ready(function() {
   var world;
   var frames = 0;
 
-  var canvas = document.getElementById("c");
-  var context = canvas.getContext("2d");
+  var context = document
+    .getElementById("c")
+    .getContext("2d");
+
   var fps = document.getElementById('fps');
 
   const CELL_SIZE = 6;
