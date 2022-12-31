@@ -1,19 +1,13 @@
-$(document).ready(function() {
+function startFire() {
+  var world;
+  var c = document.getElementById("c");
+  var context = c.getContext("2d");
+
   makeFullScreen();
 
-  var timer;
-  var world;
-  var frames = 0;
-
-  var context = document
-    .getElementById("c")
-    .getContext("2d");
-
-  var fps = document.getElementById('fps');
-
   const CELL_SIZE = 6;
-  const WIDTH = Math.floor($("#c").width() / CELL_SIZE);
-  const HEIGHT = Math.floor($("#c").height() / CELL_SIZE);
+  const WIDTH = Math.floor(c.width / CELL_SIZE);
+  const HEIGHT = Math.floor(c.height / CELL_SIZE);
   const MIN_THICK = 10;
   const MAX_THICK = 30;
   const MIN_HEAT = 90;
@@ -21,11 +15,7 @@ $(document).ready(function() {
 
   createWorld();
   loadPalette();
-  setupControls()
-  showFrames();
   startMainLoop();
-
-  console.log(paletteRGB.length);
 
   function nextCycle() {
     feedFire();
@@ -50,9 +40,7 @@ $(document).ready(function() {
     //    a
     for (var y = 1; y < HEIGHT; y++) {
       for (var x = 1; x < WIDTH; x++) {
-        // positions
         let a = (WIDTH * y) + x;
-        // values
         let va = world[a];
         let vb = world[a - (WIDTH) - 1];
         let vc = world[a - (WIDTH)];
@@ -69,48 +57,20 @@ $(document).ready(function() {
     world.fill(0);
   }
 
-  function setupControls() {
-    $(document).keydown(function() {
-      nextCycle();
-    });
-    $("#stop").click(function() {
-      clearInterval(timer);
-    });
-    $("#step").click(function() {
-      nextCycle();
-    });
-    $("#resume").click(function() {
-      startMainLoop();
-    });
-    $("#reset").click(function() {
-      location.reload();
-    });
-  }
-
   function startMainLoop() {
-    setInterval(showFrames, 1000);
-
     timer = setInterval(function() {
       nextCycle();
     }, 25);
   }
 
   function makeFullScreen() {
-    var innerHeight = window.innerHeight;
-
-    $("#c").attr("width", window.innerWidth);
-    $("#c").attr("height", innerHeight);
-  }
-
-  function showFrames() {
-    fps.textContent = frames;
-    frames = 0;
+    c.setAttribute("width", window.innerWidth);
+    c.setAttribute("height", window.innerHeight);
   }
 
   function draw(buffer) {
     var x = 0;
     var y = 0;
-    // Add the CELL_SIZE to hide the feeder
     for (var iy = 0 + CELL_SIZE; iy <= HEIGHT; iy++) {
       let lo = iy * WIDTH;
       for (var ix = 0; ix < WIDTH; ix++) {
@@ -126,6 +86,5 @@ $(document).ready(function() {
       y = y + CELL_SIZE;
       x = 0;
     }
-    frames++;
   }
-});
+};
