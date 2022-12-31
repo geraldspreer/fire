@@ -92,7 +92,7 @@ $(document).ready(function() {
 
     timer = setInterval(function() {
       nextCycle();
-    }, 0);
+    }, 25);
   }
 
   function makeFullScreen() {
