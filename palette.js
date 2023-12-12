@@ -1,6 +1,6 @@
-var paletteRGB = [];
+let paletteRGB = [];
 
-var loadPalette = function() {
+let loadPalette = function() {
   pal = [
     59, "rgb(0, 0, 0)",
     36, "rgb(1, 0, 0)",
@@ -81,7 +81,7 @@ var loadPalette = function() {
   while (pal.length > 0) {
     let count = pal.pop();
     let val = pal.pop();
-    for (var i = 0; i < count; i++) {
+    for (let i = 0; i < count; i++) {
       paletteRGB.push(val);
     }
   }

@@ -1,7 +1,7 @@
 function startFire() {
-  var world;
-  var c = document.getElementById("c");
-  var context = c.getContext("2d");
+  let world;
+  let c = document.getElementById("c");
+  let context = c.getContext("2d");
 
   makeFullScreen();
 
@@ -28,7 +28,7 @@ function startFire() {
     while (x < WIDTH) {
       let v = Math.floor(Math.random() * (MAX_HEAT - MIN_HEAT) + MIN_HEAT);
       let t = Math.floor(Math.random() * (MAX_THICK - MIN_THICK) + MIN_THICK);
-      for (var i = 1; i < t; i++) {
+      for (let i = 1; i < t; i++) {
         world[x] = v
         x++;
       }
@@ -38,8 +38,8 @@ function startFire() {
   function burn() {
     // b  c   d  
     //    a
-    for (var y = 1; y < HEIGHT; y++) {
-      for (var x = 1; x < WIDTH; x++) {
+    for (let y = 1; y < HEIGHT; y++) {
+      for (let x = 1; x < WIDTH; x++) {
         let a = (WIDTH * y) + x;
         let va = world[a];
         let vb = world[a - (WIDTH) - 1];
@@ -69,21 +69,21 @@ function startFire() {
   }
 
   function draw(buffer) {
-    var x = 0;
-    var y = 0;
-    for (var iy = 0 + CELL_SIZE; iy <= HEIGHT; iy++) {
+    let x = 0;
+    let y = 0;
+    for (let iy = 0 + CELL_SIZE; iy <= HEIGHT; iy++) {
       let lo = iy * WIDTH;
-      for (var ix = 0; ix < WIDTH; ix++) {
+      for (let ix = 0; ix < WIDTH; ix++) {
         let value = buffer[ix + lo];
         if (value < 24) {
-          x = x + CELL_SIZE;
+          x += CELL_SIZE;
           continue;
         }
         context.fillStyle = paletteRGB[value];
         context.fillRect(x, y, CELL_SIZE, CELL_SIZE);
-        x = x + CELL_SIZE;
+        x += CELL_SIZE;
       }
-      y = y + CELL_SIZE;
+      y += CELL_SIZE;
       x = 0;
     }
   }
